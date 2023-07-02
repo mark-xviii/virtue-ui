@@ -2,11 +2,13 @@ import { API } from '.'
 import {
   LoginInterface,
   LoginResponseInterface,
-} from '../../interfaces/api/login.interface'
+  UpdateUserPayloadInterface,
+  UpdateUserResponseInterface,
+} from '../../interfaces/api/auth.interface'
 import {
   RegisterInterface,
   RegisterResponseInterface,
-} from '../../interfaces/api/register.interface'
+} from '../../interfaces/api/auth.interface'
 
 const authAPI = API.enhanceEndpoints({
   addTagTypes: ['Auth'],
@@ -26,9 +28,20 @@ const authAPI = API.enhanceEndpoints({
         body,
       }),
     }),
+    update: build.mutation<
+      UpdateUserResponseInterface,
+      UpdateUserPayloadInterface
+    >({
+      query: (body) => ({
+        url: `users/me`,
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useRegisterMutation } = authAPI
+export const { useLoginMutation, useRegisterMutation, useUpdateMutation } =
+  authAPI
 
 export default authAPI

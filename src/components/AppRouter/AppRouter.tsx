@@ -1,15 +1,17 @@
 import {
-  BrowserRouter,
   RouteObject,
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom'
-import Auth from '../Auth/Auth'
+import Auth from '../../pages/AuthPage'
 import Login from '../Auth/Login/Login'
 import Register from '../Auth/Register/Register'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../state-management/stores/store'
-import Index from '../../pages/Index'
+import Index from '../../pages/IndexPage'
+import UserPage from '../../pages/UserPage'
+import SubscriptionPage from '../../pages/SubscriptionPage'
+import FeedPage from '../../pages/FeedPage'
 
 // TODO: error element
 
@@ -18,25 +20,20 @@ const AppRouter = () => {
 
   const routesForAuthenticatedOnly: RouteObject[] = [
     {
-      path: '/users/:publicToken',
-      element: <h1>User page</h1>,
+      path: '/users/:publicTag',
+      element: <UserPage />,
     },
     {
-      path: '/virtues',
-      element: <h1>see all my virtues</h1>,
+      path: '/feed',
+      element: <FeedPage />,
     },
     {
-      path: '/virtues/:virtueId/:action',
-      element: <h1>actions on virtue</h1>,
+      path: '/subscribe',
+      element: <SubscriptionPage />,
     },
   ]
 
-  const publicRoutes: RouteObject[] = [
-    {
-      path: '/',
-      element: <Index />,
-    },
-  ]
+  const publicRoutes: RouteObject[] = [{}]
 
   const routesForUnauthorizedOnly: RouteObject[] = [
     {
@@ -50,9 +47,16 @@ const AppRouter = () => {
   ]
 
   const assembledRouter = createBrowserRouter([
-    ...publicRoutes,
-    ...(!accessToken ? routesForUnauthorizedOnly : []),
-    ...(accessToken ? routesForAuthenticatedOnly : []),
+    {
+      path: '/',
+      element: <Index />,
+      children: [
+        ...(accessToken
+          ? routesForAuthenticatedOnly
+          : routesForUnauthorizedOnly),
+        ...publicRoutes,
+      ],
+    },
   ])
 
   return <RouterProvider router={assembledRouter} />

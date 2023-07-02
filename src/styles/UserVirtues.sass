@@ -1,0 +1,27 @@
+@use 'base/palette'
+
+.user-virtues
+  width: 100%
+  height: fit-content
+  box-sizing: border-box
+  padding: 0.618rem
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  gap: 1.618rem
+  justify-content: center
+
+.user-info
+  background: palette.$pink
+  box-sizing: border-box
+  border-radius: 0.5rem
+  padding: 0.618rem
+  border: 0rem solid palette.$black
+  transition-duration: 1s
+
+.user-info:hover
+  font-size: 32px
+  background: palette.$lavender
+  letter-spacing: 20px
+  transform: rotate3d(2, 1, 1, 40deg)
+  border: 1rem solid palette.$black

@@ -7,6 +7,7 @@ import { setAuthData } from '../../../state-management/slices/auth.slice'
 import { LoginRounded } from '@mui/icons-material'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
+import { LoginResponseInterface } from '../../../interfaces/api/auth.interface'
 
 interface LoginFormInterface {
   publicTag: string
@@ -43,7 +44,12 @@ const Login = () => {
         password,
       }).unwrap()
 
-      dispatch(setAuthData({ accessToken: res.accessToken }))
+      dispatch(
+        setAuthData({
+          accessToken: res.accessToken,
+          id: res.id,
+        } as LoginResponseInterface)
+      )
 
       navigate('/')
     } catch (error: any) {
@@ -52,48 +58,50 @@ const Login = () => {
   }
 
   return (
-    <div className="auth-form-container">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={loginValidationSchema}
-        onSubmit={(values) => {
-          handleLogin(values)
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form className="auth-form">
-            <div className="auth-form-headline">
-              <h1 className="generic-h1">Login</h1>
-              <LoginRounded
-                className="auth-form-icon"
-                onClick={() => {
-                  navigate('/')
-                }}
+    <div className="page-container">
+      <div className="auth-form-container">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={loginValidationSchema}
+          onSubmit={(values) => {
+            handleLogin(values)
+          }}
+        >
+          {({ errors, touched }) => (
+            <Form className="auth-form">
+              <div className="auth-form-headline">
+                <h1 className="generic-h1">Login</h1>
+                <LoginRounded
+                  className="auth-form-icon"
+                  onClick={() => {
+                    navigate('/')
+                  }}
+                />
+              </div>
+              <label className="auth-form-label">Public Tag:</label>
+              <Field name="publicTag" className="auth-form-input" />
+              {errors.publicTag && touched.publicTag ? (
+                <div className="auth-form-message">{errors.publicTag}</div>
+              ) : null}
+              <label className="auth-form-label">Password:</label>
+              <Field
+                name="password"
+                className="auth-form-input"
+                type="password"
               />
-            </div>
-            <label className="auth-form-label">Public Tag:</label>
-            <Field name="publicTag" className="auth-form-input" />
-            {errors.publicTag && touched.publicTag ? (
-              <div className="auth-form-message">{errors.publicTag}</div>
-            ) : null}
-            <label className="auth-form-label">Password:</label>
-            <Field
-              name="password"
-              className="auth-form-input"
-              type="password"
-            />
-            {errors.password && touched.password ? (
-              <div className="auth-form-message">{errors.password}</div>
-            ) : null}
-            <button type="submit" className="auth-form-button">
-              Submit
-            </button>
-            <Link to={'/auth/register'} className="auth-form-link">
-              Don't have an account?
-            </Link>
-          </Form>
-        )}
-      </Formik>
+              {errors.password && touched.password ? (
+                <div className="auth-form-message">{errors.password}</div>
+              ) : null}
+              <button type="submit" className="auth-form-button">
+                Submit
+              </button>
+              <Link to={'/auth/register'} className="auth-form-link">
+                Don't have an account?
+              </Link>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   )
 }

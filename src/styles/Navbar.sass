@@ -1,0 +1,36 @@
+@use 'base/palette'
+
+.navbar
+  width: 100vw
+  height: 80px
+  max-height: 11.15vh
+  background: palette.$white
+  color: palette.$blue
+  position: relative
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  box-sizing: border-box
+  padding: 0.618rem
+  align-items: center
+  gap: 40px
+  flex-wrap: wrap
+
+.navbar-link
+  font-size: 24px
+  text-decoration: underline
+  color: palette.$green
+  background: palette.$black
+  border-radius: 1rem
+  padding: 0.618rem
+  cursor: pointer
+  width: fit-content
+  transition-duration: 1s
+  border: 2px solid palette.$black
+
+.navbar-link:hover
+  letter-spacing: 30px
+  color: palette.$black
+  background: palette.$warning
+  border: 2px solid palette.$black
+  border-radius: 2rem
