@@ -6,6 +6,7 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../stores/store'
+import { ErrorInterface } from '../../interfaces/api/error.interface'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_URL,
@@ -29,9 +30,12 @@ const baseQueryWithInterceptor: BaseQueryFn<
   const result = await baseQuery(args, api, extraOptions)
 
   if (result.error) {
-    console.log(result.error)
-    alert(result.error)
+    const message = (result.error.data as ErrorInterface).message
+
+    console.log(message)
+    alert(message)
   }
+
   return result
 }
 

@@ -1,12 +1,7 @@
-import { Outlet, useParams } from 'react-router'
+import { Outlet } from 'react-router'
 
 const Auth = () => {
-  return (
-    <>
-      potaxie
-      <Outlet />
-    </>
-  )
+  return <Outlet />
 }
 
 export default Auth

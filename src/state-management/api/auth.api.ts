@@ -3,6 +3,10 @@ import {
   LoginInterface,
   LoginResponseInterface,
 } from '../../interfaces/api/login.interface'
+import {
+  RegisterInterface,
+  RegisterResponseInterface,
+} from '../../interfaces/api/register.interface'
 
 const authAPI = API.enhanceEndpoints({
   addTagTypes: ['Auth'],
@@ -15,9 +19,16 @@ const authAPI = API.enhanceEndpoints({
         body,
       }),
     }),
+    register: build.mutation<RegisterResponseInterface, RegisterInterface>({
+      query: (body) => ({
+        url: 'auth/register',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation } = authAPI
+export const { useLoginMutation, useRegisterMutation } = authAPI
 
 export default authAPI

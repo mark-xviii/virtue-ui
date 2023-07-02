@@ -6,6 +6,8 @@ export interface AuthState {
   accessToken?: string | null
 }
 
+// I could have used hydration and persist libraries but I didn't. >)
+
 const initialState: AuthState = {
   accessToken: localStorage.getItem('accessToken'),
 }
@@ -15,7 +17,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setAuthData: (state, action: PayloadAction<LoginResponseInterface>) => {
-      state = { ...state, ...action.payload }
+      state.accessToken = action.payload.accessToken
 
       localStorage.setItem('accessToken', action.payload.accessToken)
     },
