@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 import { LoginResponseInterface } from '../../../interfaces/api/auth.interface'
 
-interface RegisterFormInterface {
+export interface RegisterFormInterface {
   publicTag: string
   displayName: string
   password: string

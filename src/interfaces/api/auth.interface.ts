@@ -28,7 +28,7 @@ export interface UpdateUserResponseInterface {
 }
 
 export interface UpdateUserPayloadInterface {
-  publicTag: string
-  password: string
-  displayName: string
+  publicTag?: string
+  password?: string
+  displayName?: string
 }
